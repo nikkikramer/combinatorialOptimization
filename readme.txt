@@ -1,0 +1,15 @@
+Description of the algorithm VeRoLog Solver Challenge - Case team 18.
+
+No other software needs to be installed in order to run the code.
+For the runtime the algorithm only runs within the 20 seconds for the first 5 instances, we were not able to improve the runtimes at the end of the course such that all instances would run within 20 seconds. An extensive explanation on what has been done to improve the runtime can be found in the report.
+
+All objective values found per instance can be found in the report.
+
+TO CREATE SOLUTION FILE, RUN FOLLOWING COMMAND IN TERMINAL
+python Solver.py CO_Case2021_01.txt 900
+
+The algorithm will start with computing the technicians allocations. For each technician we created data frames of all feasible pivots a technician can go to. In addition, all requests who still need to be processed are stored in a separate data frame named df_remaining_requests. These requests are sorted based on the day on which they are installed and by their time window length, this is the order in which we will handle the request. We a requests gets assigned to a technician it will be dropped from the data frame. The way in which we assign a request to a technician is done using a parallel extra mileage algorithm. A data framed is created named df_extramileage and if all constraints are met for a technician (maximum travel distance, time window etc.) a value would be added to this data frame. Nevertheless, when those constraint are not satisfied infinity would be added to the extra mileage data frame. The lowest value for the extra mileage would be searched and the corresponding technician and request would be assigned to the tech allocation dictionary. 
+	The allocation of the trucks is done by first checking which requests need to be delivered today and then fill up the trucks with the requests of today. After this, it needs to be checked if the constraints are satisfied such as that is the maximum capacity is exceeded of is the maximum distance is exceeded, when these constraints are not satisfied a new truck will be initiated. The distances can be checked using our function totalDistTruckFromList which will compute the distance, we also have a similar function for the computation of the distance of a technician namely totalDistTechFromList.
+	The functions to obtain the final output such as the computation of the costs and the variables which are displayed in the output file can be found at the bottom of the python file. These were calculated in the way according to the VeRoLog Solver challenge pdf file. 
+	Finally, we have our baseAlgorithm in which we obtain all the necessary values which are computed using the functions described above. The python files ReadInputFile and WriteOutputFile read the instance files and turn them into appropriate dataframes and eventually write them into the appropriate way the instance solution file should be. 
+	
